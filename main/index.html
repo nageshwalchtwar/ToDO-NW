@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Nagesh ToDo App</title>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+  <script>
+    // Replace the following with your own Firebase config
+    const config = {
+      apiKey: "AIzaSyDFpaOjtCYvjlvYDz3c52gqvFyI8C-UEYA",
+      authDomain: "todo-web-42018.firebaseapp.com",
+      databaseURL: "https://todo-web-42018-default-rtdb.firebaseio.com",
+      projectId: "todo-web-42018",
+      storageBucket: "todo-web-42018.appspot.com",
+      messagingSenderId: "377619656306",
+      appId: "1:377619656306:web:b2ab8c24f6627787d01ceb",
+      measurementId: "G-BW4CBG60T7"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/js/all.js"></script>
+
+  <script defer src="script.js"></script>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<script src="todo.jpg"></script>
+
+<body>
+
+  <div class="container">
+    <h1 align="center">The ToDo App</h1>
+
+    <div class="row">
+      <!-- Input box -->
+      <div class="col-md-7">
+        <script src="todo.jpg"></script>
+
+
+        <div class="form-group">
+          <label for="inpNewTask">New Task</label>
+          <input type="text" class="form-control" id="inpNewTask" aria-describedby="newTaskHelp"
+            placeholder="Enter the name of the task">
+          <small id="newTaskHelp" class="form-text text-muted">A short one line description want to add. Press Enter for
+            action</small>
+        </div>
+      </div>
+
+      <!-- Nagesh Project Buttons -->
+      <div class="col-md-5">
+        <div class="row">
+          <div class="col-6 col-sm-3 col-md-6 p-1">
+            <button class="btn btn-success col" disabled id="btnAdd">
+              <i class="fas fa-plus-square"></i> Add
+            </button>
+          </div>
+          <div class="col-6 col-sm-3 col-md-6  p-1">
+            <button class="btn btn-danger col" disabled id="btnReset">
+              <i class="fas fa-backspace"></i> Reset to default
+            </button>
+          </div>
+          <div class="col-6 col-sm-3 col-md-6  p-1">
+            <button class="btn btn-info col" disabled id="btnSort">
+              <i class="fas fa-sort-amount-down"></i> Sort by
+            </button>
+          </div>
+          <div class="col-6 col-sm-3 col-md-6  p-1">
+            <button class="btn btn-warning col" disabled id="btnCleanup">
+              <i class="fas fa-trash-alt"></i> Clean task
+            </button>
+          </div>
+          <div class="col-6 col-sm-3 col-md-6  p-1">
+            <button class="btn btn-warning col" disabled id="btnlogout">
+              Logout
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Task List -->
+
+    <ul class="row list-group m-2" id="ulTasks">
+    </ul>
+  </div>
+  <script>
+    btnlogout.addEventListener('click', function (e) {
+
+      location.href = "../login.html";
+
+    })
+  </script>
+</body>
+
+</html>
