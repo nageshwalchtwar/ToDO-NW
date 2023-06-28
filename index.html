@@ -11,14 +11,14 @@
       <tr>
         <td><h2>Registration Form</h2></td>
       </tr>
-      <tr>      
+<!--       <tr>      
         <td><input type="text" placeholder="Username" id="txtUsername"></td>
+      </tr> -->
+      <tr>      
+        <td><input type="text" placeholder="Email" id="txtEmail" required></td>
       </tr>
       <tr>      
-        <td><input type="text" placeholder="Email" id="txtEmail"></td>
-      </tr>
-      <tr>      
-        <td><input type="password" placeholder="Password" id="txtPassword"></td>
+        <td><input type="password" placeholder="Password" id="txtPassword" required></td>
       </tr>
       <tr>      
         <span id="info">ToDo</span>
@@ -68,7 +68,7 @@
   //login button
   btnLogin.addEventListener('click',function(e){
     if(validateEmail){
-      location.href="main/main/index.html";
+      location.href="main/main.html";
     }
   })
   
