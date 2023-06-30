@@ -99,58 +99,57 @@
           info.style.display = 'block';
         });
     });
-  //Register Button Click Event
-  btnRegister.addEventListener('click', function(e){
-    e.preventDefault();
-    if(txtUsername.value == '' || txtEmail.value == '' || txtPassword.value == ''){
-      info.className = '';
-      info.innerHTML = 'Please fill the form!';
-      info.style.color = '#e74c3c';
-      info.style.display = 'block';
-      info.className += 'animated shake';
-    }
-    else{
-        if(txtUsername.value.length < 3){
-          info.className = '';
-          info.innerHTML = 'Username must contain at least 3 character!';
+
+    // Register Button Click Event
+    btnRegister.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (txtUsername.value === '' || txtEmail.value === '' || txtPassword.value === '') {
+        info.innerHTML = 'Please fill the form!';
+        info.style.color = '#e74c3c';
+        info.style.display = 'block';
+        return;
+      }
+      if (txtUsername.value.length < 3) {
+        info.innerHTML = 'Username must contain at least 3 characters!';
+        info.style.color = '#e74c3c';
+        info.style.display = 'block';
+        return;
+      }
+      if (!validateEmail(txtEmail.value)) {
+        info.innerHTML = 'Invalid Email!';
+        info.style.color = '#e74c3c';
+        info.style.display = 'block';
+        return;
+      }
+      if (txtPassword.value.length < 6) {
+        info.innerHTML = 'Password must contain at least 6 characters!';
+        info.style.color = '#e74c3c';
+        info.style.display = 'block';
+        return;
+      }
+
+      // Create a new user with Firebase authentication
+      firebase.auth().createUserWithEmailAndPassword(txtEmail.value, txtPassword.value)
+        .then((userCredential) => {
+          // User registered successfully
+          var user = userCredential.user;
+          info.innerHTML = 'You have registered successfully!';
+          info.style.color = '#2ecc71';
+          info.style.display = 'block';
+          txtUsername.value = '';
+          txtEmail.value = '';
+          txtPassword.value = '';
+          txtUsername.focus();
+        })
+        .catch((error) => {
+          // Handle registration error
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          info.innerHTML = 'Registration failed: ' + errorMessage;
           info.style.color = '#e74c3c';
           info.style.display = 'block';
-          info.className += 'animated shake';
-        }else{
-          if(!validateEmail(txtEmail.value)){
-            info.className = '';
-            info.innerHTML = 'Invalid Email!';
-            info.style.color = '#e74c3c';
-            info.style.display = 'block';
-            info.className += 'animated shake';
-          }else{
-            if(txtPassword.value.length < 6){
-              info.className = '';
-              info.innerHTML = 'Password must contain at least 6 character!';
-              info.style.color = '#e74c3c';
-              info.style.display = 'block';            
-              info.className += 'animated shake';
-            }
-            else{
-              info.innerHTML = 'You"ve registered successfully!';
-              info.className += 'animated bounce';
-              info.style.color = '#2ecc71';
-              info.style.display = 'block';
-              firebaseRef.child('Users').child('Username').push(txtUsername.value);
-              firebaseRef.child('Users').child('Email').push(txtEmail.value);
-              firebaseRef.child('Users').child('Password').push(txtPassword.value);         
-              txtUsername.value = '';
-              txtEmail.value = '';
-              txtPassword.value = '';
-              txtUsername.focus();
-    
-            }
-          }
-        }
-    
-    }
-    
-  });
+        });
+    });
   </script>
   
 </body>
