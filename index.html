@@ -65,13 +65,40 @@
       return re.test(email);
       
   }
-  //login button
-  btnLogin.addEventListener('click',function(e){
-    if(validateEmail){
-      location.href="main/home.html";
-    }
-  })
-  
+    //Login Button Click Event
+    btnLogin.addEventListener('click', function (e) {
+      e.preventDefault();
+      var email = txtEmail.value;
+      var password = txtPassword.value;
+
+      // Validate input
+      if (!validateEmail(email) || password === '') {
+        info.innerHTML = 'Please enter a valid email and password.';
+        info.style.color = '#e74c3c';
+        info.style.display = 'block';
+        return;
+      }
+
+      // Sign in with Firebase authentication
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // User successfully logged in
+          var user = userCredential.user;
+          info.innerHTML = 'Login successful!';
+          info.style.color = '#2ecc71';
+          info.style.display = 'block';
+          // Redirect to the desired page
+          location.href = 'main/index.html';
+        })
+        .catch((error) => {
+          // Handle login error
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          info.innerHTML = 'Login failed: ' + errorMessage;
+          info.style.color = '#e74c3c';
+          info.style.display = 'block';
+        });
+    });
   //Register Button Click Event
   btnRegister.addEventListener('click', function(e){
     e.preventDefault();
