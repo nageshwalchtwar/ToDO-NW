@@ -102,6 +102,11 @@
     </ul>
   </div>
   <script>
+    var btnAdd = document.getElementById('btnAdd');
+    var task = document.getElementById('inpNewTask');
+    btnAdd.addEventListener('click', function (e) {
+      firebaseRef.child('Users').child('task').push(task);
+    })
     btnlogout.addEventListener('click', function (e) {
 
       location.href = "../index.html";
