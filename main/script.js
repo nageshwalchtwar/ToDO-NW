@@ -15,7 +15,6 @@ function addItem() {
     })
     ulTasks.append(listItem)
     inpNewTask.val('')
-    toggleInputButtons()
 }
 
 function clearDone() {
@@ -27,13 +26,7 @@ function sortTasks() {
     $('#ulTasks .done').appendTo(ulTasks)
 }
 
-function toggleInputButtons() {
-    // btnReset.prop('disabled', inpNewTask.val() == '')
-    // btnAdd.prop('disabled', inpNewTask.val() == '')
-    // btnSort.prop('disabled', ulTasks.children().length < 1)
-    // btnCleanup.prop('disabled', ulTasks.children().length < 1)
-    // btnlogout.prop('disabled', ulTasks.children().length < 1)
-}
+
 
 inpNewTask.keypress((e) => {
     if (e.which == 13) addItem()
@@ -43,7 +36,7 @@ inpNewTask.on('input', toggleInputButtons)
 btnAdd.click(addItem)
 btnReset.click(() => {
     inpNewTask.val('')
-    toggleInputButtons()
+
 })
 btnCleanup.click(clearDone)
 btnSort.click(sortTasks)
