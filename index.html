@@ -1,75 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Login | ToDo</title>
 </head>
+
 <body>
   <div id="main">
     <table id="registrationTable">
       <tr>
-        <td><h2>Registration Form</h2></td>
+        <td>
+          <h2>Registration Form</h2>
+        </td>
       </tr>
-<!--       <tr>      
-        <td><input type="text" placeholder="Username" id="txtUsername"></td>
-      </tr> -->
-      <tr>      
-        <td><input type="text" placeholder="Email" id="txtEmail" required></td>
+
+      <tr>
+        <td><input type="text" placeholder="Email" id="txtEmail"></td>
       </tr>
-      <tr>      
-        <td><input type="password" placeholder="Password" id="txtPassword" required></td>
+      <tr>
+        <td><input type="password" placeholder="Password" id="txtPassword"></td>
       </tr>
-      <tr>      
+      <tr>
         <span id="info">ToDo</span>
-        
+
         <td>
           <button id="btnRegister">Register</button>
-          <button id="btnLogin">Login</button>          
+          <button id="btnLogin">Login</button>
         </td>
       </tr>
     </table>
   </div>
-  <link rel="stylesheet" href="login.css">
-<!--   <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<!-- <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-config.js"></script> --> -->
-
-
+  <link rel="stylesheet" href="/main/login.css">
+  <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
   <script>
     // Initialize Firebase
     const config = {
-    apiKey: "AIzaSyDFpaOjtCYvjlvYDz3c52gqvFyI8C-UEYA",
-    authDomain: "todo-web-42018.firebaseapp.com",
-    databaseURL: "https://todo-web-42018-default-rtdb.firebaseio.com",
-    projectId: "todo-web-42018",
-    storageBucket: "todo-web-42018.appspot.com",
-    messagingSenderId: "377619656306",
-    appId: "1:377619656306:web:b2ab8c24f6627787d01ceb",
-    measurementId: "G-BW4CBG60T7"
-  };
+      apiKey: "AIzaSyDFpaOjtCYvjlvYDz3c52gqvFyI8C-UEYA",
+      authDomain: "todo-web-42018.firebaseapp.com",
+      databaseURL: "https://todo-web-42018-default-rtdb.firebaseio.com",
+      projectId: "todo-web-42018",
+      storageBucket: "todo-web-42018.appspot.com",
+      messagingSenderId: "377619656306",
+      appId: "1:377619656306:web:b2ab8c24f6627787d01ceb",
+      measurementId: "G-BW4CBG60T7"
+    };
     firebase.initializeApp(config);
   </script>
-  
+
   <script>
-    var txtUsername = document.getElementById('txtUsername');
-  var txtEmail = document.getElementById('txtEmail');
-  var btnRegister = document.getElementById('btnRegister');
-  var btnLogin = document.getElementById('btnLogin');
-  var registrationTable = document.getElementById('registrationTable');
-  var loginTable = document.getElementById('loginTable');
-  var info = document.getElementById('info');
-  
-  //Firebase Config
-  var firebaseRef = firebase.database().ref();
-  
-  //Email Validation
-  function validateEmail(email) {
+    // var txtUsername = document.getElementById('txtUsername');
+    var txtEmail = document.getElementById('txtEmail');
+    var btnRegister = document.getElementById('btnRegister');
+    var btnLogin = document.getElementById('btnLogin');
+    var registrationTable = document.getElementById('registrationTable');
+    var loginTable = document.getElementById('loginTable');
+    var info = document.getElementById('info');
+
+    //Firebase Config
+    var firebaseRef = firebase.database().ref();
+
+    //Email Validation
+    function validateEmail(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
       return re.test(email);
-      
-  }
+
+    }
+
+    //Register Button Click Event
+    btnRegister.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (txtEmail.value == '' || txtPassword.value == '') {
+        info.className = '';
+        info.innerHTML = 'Please fill the form!';
+        info.style.color = '#e74c3c';
+        info.style.display = 'block';
+        info.className += 'animated shake';
+      }
+      else {
+
+        if (!validateEmail(txtEmail.value)) {
+          info.className = '';
+          info.innerHTML = 'Invalid Email!';
+          info.style.color = '#e74c3c';
+          info.style.display = 'block';
+          info.className += 'animated shake';
+        } else {
+          if (txtPassword.value.length < 6) {
+            info.className = '';
+            info.innerHTML = 'Password must contain at least 6 character!';
+            info.style.color = '#e74c3c';
+            info.style.display = 'block';
+            info.className += 'animated shake';
+          }
+          else {
+            info.innerHTML = 'You"ve registered successfully!';
+            info.className += 'animated bounce';
+            info.style.color = '#2ecc71';
+            info.style.display = 'block';
+            // firebaseRef.child('Users').child('Username').push(txtUsername.value);
+            // firebaseRef.child('Users').child('Email').push(txtEmail.value);
+            // firebaseRef.child('Users').child('Password').push(txtPassword.value);
+            // info.innerHTML = (firebaseRef.child('users').child('password').get(txtPassword.value));
+            // txtUsername.value = '';
+            // txtEmail.value = '';
+            // txtPassword.value = '';
+            // txtUsername.focus();
+
+          }
+        }
+
+
+      }
+
+      // Create a new user with Firebase authentication
+      firebase.auth().createUserWithEmailAndPassword(txtEmail.value, txtPassword.value)
+        .then((userCredential) => {
+          // User registered successfully
+          var user = userCredential.user;
+          info.innerHTML = 'You have registered successfully!';
+          info.style.color = '#2ecc71';
+          info.style.display = 'block';
+          // txtUsername.value = '';
+          txtEmail.value = '';
+          txtPassword.value = '';
+          txtUsername.focus();
+        })
+        .catch((error) => {
+          // Handle registration error
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          info.innerHTML = 'Registration failed: ' + errorMessage;
+          info.style.color = '#e74c3c';
+          info.style.display = 'block';
+        });
+
+    });
     //Login Button Click Event
     btnLogin.addEventListener('click', function (e) {
       e.preventDefault();
@@ -105,61 +173,9 @@
         });
     });
 
-    // Register Button Click Event
-    btnRegister.addEventListener('click', function (e) {
-      e.preventDefault();
-      if (txtEmail.value === '' || txtPassword.value === '') {
-        info.innerHTML = 'Please fill the form!';
-        info.style.color = '#e74c3c';
-        info.style.display = 'block';
-        return;
-      }
-      // if (txtUsername.value.length < 3) {
-      //   info.innerHTML = 'Username must contain at least 3 characters!';
-      //   info.style.color = '#e74c3c';
-      //   info.style.display = 'block';
-      //   return;
-      // }
-      if (!validateEmail(txtEmail.value)) {
-        info.innerHTML = 'Invalid Email!';
-        info.style.color = '#e74c3c';
-        info.style.display = 'block';
-        return;
-      }
-      if (txtPassword.value.length < 3) {
-        info.innerHTML = 'Password must contain at least 6 characters!';
-        info.style.color = '#e74c3c';
-        info.style.display = 'block';
-        return;
-      }
 
-      // Create a new user with Firebase authentication
-      firebase.auth().createUserWithEmailAndPassword(txtEmail.value, txtPassword.value)
-        .then((userCredential) => {
-          // User registered successfully
-          var user = userCredential.user;
-          info.innerHTML = 'You have registered successfully!';
-          info.style.color = '#2ecc71';
-          info.style.display = 'block';
-          txtUsername.value = '';
-          txtEmail.value = '';
-          txtPassword.value = '';
-          txtUsername.focus();
-        })
-        .catch((error) => {
-          // Handle registration error
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          info.innerHTML = 'Registration failed: ' + errorMessage;
-          info.style.color = '#e74c3c';
-          info.style.display = 'block';
-        });
-    });
   </script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js"></script>
-<!-- Add other Firebase SDKs as needed -->
 
 </body>
+
 </html>
