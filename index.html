@@ -103,18 +103,18 @@
     // Register Button Click Event
     btnRegister.addEventListener('click', function (e) {
       e.preventDefault();
-      if (txtUsername.value === '' || txtEmail.value === '' || txtPassword.value === '') {
+      if (txtEmail.value === '' || txtPassword.value === '') {
         info.innerHTML = 'Please fill the form!';
         info.style.color = '#e74c3c';
         info.style.display = 'block';
         return;
       }
-      if (txtUsername.value.length < 3) {
-        info.innerHTML = 'Username must contain at least 3 characters!';
-        info.style.color = '#e74c3c';
-        info.style.display = 'block';
-        return;
-      }
+      // if (txtUsername.value.length < 3) {
+      //   info.innerHTML = 'Username must contain at least 3 characters!';
+      //   info.style.color = '#e74c3c';
+      //   info.style.display = 'block';
+      //   return;
+      // }
       if (!validateEmail(txtEmail.value)) {
         info.innerHTML = 'Invalid Email!';
         info.style.color = '#e74c3c';
