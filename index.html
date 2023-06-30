@@ -1,70 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Login</title>
 </head>
-
 <body>
   <div id="main">
     <table id="registrationTable">
       <tr>
-        <td>
-          <h2>Registration Form</h2>
-        </td>
+        <td><h2>Registration Form</h2></td>
       </tr>
-        <td><input type="text" placeholder="Email" id="txtEmail"></td>
+<!--       <tr>      
+        <td><input type="text" placeholder="Username" id="txtUsername"></td>
+      </tr> -->
+      <tr>      
+        <td><input type="text" placeholder="Email" id="txtEmail" required></td>
       </tr>
-      <tr>
-        <td><input type="password" placeholder="Password" id="txtPassword"></td>
+      <tr>      
+        <td><input type="password" placeholder="Password" id="txtPassword" required></td>
       </tr>
-      <tr>
-        <td>
-          <span id="info">ToDo</span>
-        </td>
+      <tr>      
+        <span id="info">ToDo</span>
+        
         <td>
           <button id="btnRegister">Register</button>
-          <button id="btnLogin">Login</button>
+          <button id="btnLogin">Login</button>          
         </td>
       </tr>
     </table>
   </div>
-  <link rel="stylesheet" href="/main/login.css">
+  <link rel="stylesheet" href="login.css">
   <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
   <script>
     // Initialize Firebase
     const config = {
-      apiKey: "AIzaSyDFpaOjtCYvjlvYDz3c52gqvFyI8C-UEYA",
-      authDomain: "todo-web-42018.firebaseapp.com",
-      databaseURL: "https://todo-web-42018-default-rtdb.firebaseio.com",
-      projectId: "todo-web-42018",
-      storageBucket: "todo-web-42018.appspot.com",
-      messagingSenderId: "377619656306",
-      appId: "1:377619656306:web:b2ab8c24f6627787d01ceb",
-      measurementId: "G-BW4CBG60T7"
-    };
+    apiKey: "AIzaSyDFpaOjtCYvjlvYDz3c52gqvFyI8C-UEYA",
+    authDomain: "todo-web-42018.firebaseapp.com",
+    databaseURL: "https://todo-web-42018-default-rtdb.firebaseio.com",
+    projectId: "todo-web-42018",
+    storageBucket: "todo-web-42018.appspot.com",
+    messagingSenderId: "377619656306",
+    appId: "1:377619656306:web:b2ab8c24f6627787d01ceb",
+    measurementId: "G-BW4CBG60T7"
+  };
     firebase.initializeApp(config);
   </script>
-
+  
   <script>
     var txtUsername = document.getElementById('txtUsername');
-    var txtEmail = document.getElementById('txtEmail');
-    var txtPassword = document.getElementById('txtPassword');
-    var btnRegister = document.getElementById('btnRegister');
-    var btnLogin = document.getElementById('btnLogin');
-    var info = document.getElementById('info');
-
-    //Firebase Config
-    var firebaseRef = firebase.database().ref();
-
-    //Email Validation
-    function validateEmail(email) {
+  var txtEmail = document.getElementById('txtEmail');
+  var btnRegister = document.getElementById('btnRegister');
+  var btnLogin = document.getElementById('btnLogin');
+  var registrationTable = document.getElementById('registrationTable');
+  var loginTable = document.getElementById('loginTable');
+  var info = document.getElementById('info');
+  
+  //Firebase Config
+  var firebaseRef = firebase.database().ref();
+  
+  //Email Validation
+  function validateEmail(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
-    }
-
+      
+  }
     //Login Button Click Event
     btnLogin.addEventListener('click', function (e) {
       e.preventDefault();
@@ -121,7 +121,7 @@
         info.style.display = 'block';
         return;
       }
-      if (txtPassword.value.length < 6) {
+      if (txtPassword.value.length < 3) {
         info.innerHTML = 'Password must contain at least 6 characters!';
         info.style.color = '#e74c3c';
         info.style.display = 'block';
@@ -151,7 +151,6 @@
         });
     });
   </script>
-
+  
 </body>
-
 </html>
